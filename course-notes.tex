@@ -1,0 +1,776 @@
+\documentclass{article}
+
+\usepackage{packages}
+\usepackage{macros}
+\usepackage{amsmath}
+\usepackage{pdfpages}
+
+\title{PHYS 522 \\ Accelerator Physics}
+\author{ Paul M. Jung }
+
+\numberwithin{equation}{section}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Basic Quantities}
+
+\begin{tabular}{ c }
+$1 eV$ = $1.6022 \cdot 10^{-19}$ J \\
+$m_e = 9.109 \cdot 10^{-31} $ kg \\
+$m_p = 1.672 \cdot 10^{-27}$ kg \\
+$u = 1.6606 \cdot 10^{-27}$ kg \\
+$e = 1.6022 \cdot 10^{-19}$ A$\cdot$s
+\end{tabular}
+
+\section{Classical Laws}
+The Lorentz force law:
+\begin{align}
+\vec{F} = q \cdot \vec{E} + q \cdot \vec{v} \times \vec{B}
+\end{align}
+
+\section{Relativistic Parameters}
+Momentum is given by 
+\begin{align}
+p = \gamma m_0 v
+\end{align}
+energy is given by:
+\begin{align}
+E = \sqrt{p^2 c^2 + m^2 c^4} = \gamma m_0 c^2
+\end{align}
+and can be split into rest energy and kinetic energy by:
+\begin{align}
+E = E_{\rm kin} + m_0 c^2 \implies E_{\rm kin} = \left( \gamma -1 \right) m_0 c^2
+\end{align}
+
+Useful equations are:
+\begin{align}
+\gamma = \frac{E_{kin}}{m_0 c^2}+1 , \qquad \beta = \sqrt{1-\gamma^{-2}} ,\qquad \gamma^2-1 = \gamma^2 \beta^2
+\end{align}
+
+\section{Focusing}
+
+\subsection{Vertical Magnetic Gradient Focusing}
+Magnetic gradient focusing in a cyclotron, the vertical force is given by:
+\begin{align}
+F_z = q v \cdot B_r = q v \cdot \frac{\di B_z}{\di r} z
+\end{align}
+but $\frac{\di B_z}{\di r} = \frac{\di B_r}{\di z}$ since $\nabla \times \vec{B} = 0$ in the gap. So we have the differential equation for the vertical motion:
+\begin{align}
+m \ddot{z} - q v \cdot \frac{\di B_z}{\di r}z = 0
+\end{align}
+which has exponential solutions, periodic if we can write the frequency $\omega_z^2 = -qv \cdot \frac{\di B_z}{\di r}$.
+The vertical tune, $Q_z$, is defined by the number of oscillations in the vertical plane per revolution in the circular machine i.e.
+\begin{align}
+Q_z = \frac{\omega_z}{\omega_c} = \sqrt{-\frac{r}{B_z} \frac{\di B_z}{\di r}} = \sqrt{n}
+\end{align}
+where the dimensionless number $n$ is called the `field-index'.
+
+\subsection{Radial Magnetic Gradient Focusing}
+
+Oscillations in $r$ about the reference orbit. For uniform circular motion $Q_r = 1$, i.e. in a uniform dipole field. 
+
+\subsection{Weak Focusing}
+In a situation with `weak focusing' we have tunes given by:
+\begin{align}
+Q_r = \sqrt{1-n}, \qquad Q_z = \sqrt{n}
+\end{align}
+which, for stability in both planes requires $0< n < 1$.
+
+\subsection{Edge Focusing}
+Particles entering a magnetic field at an angle $\kappa$ to the normal interact with the longitudinal components of the fringe field $B_y$ proportionally to their velocity component $v_x$, parallel to the edge yielding a force:
+\begin{align}
+F_z = q v_x B_y = -qvB_y \sin \kappa
+\end{align}
+
+\subsection{Strong Focusing}
+Using a FODO type series of lenses lets one focus much more strongly than the weak focusing machines. 
+
+\section{Hill's Equations}
+Hill's Equations are the linear equations of motion derived from Newton's laws and the Lorentz force, they are:
+\begin{align}
+x''(s) + \left( \frac{1}{\rho^2(s)} -k(s) \right) x(s) =& \frac{1}{\rho(s)}\frac{\Delta p}{p} \\
+y''(s) + k(s) y(s) =& 0
+\end{align}
+since we assume the bending from the dipoles are in the $x$-plane. It is assumed that: 
+\begin{align}
+\frac{m v_s^2}{\rho} = qv_s B_y \implies \frac{1}{\rho} = \left| \frac{q B_y}{p} \right|
+\end{align}
+If one Taylor expands the magnetic field in the $x$-direction (a typical multi-pole expansion) then:
+\begin{align}
+\frac{q}{p} B_y =& \frac{q}{p} \left[ B_{y0} + \frac{dB_y}{dx} x + \frac{1}{2!}\frac{d^2 B_y}{dx^2} x^2 + \frac{1}{3!}\frac{d^3 B_y}{dx^3} x^3 + \cdots \right] \\
+=& \frac{q}{p} \left[ \frac{1}{\rho} + k x + \frac{1}{2!} m x^2 + \frac{1}{3!} o x^3 + \cdots \right]
+\end{align}
+where we have identified terms $1/\rho$ is the dipole term, $k$ is the quadrupole, $m$ is the sextuple, and $o$ is the octupole term. So to first order, we have assumed that the dipole steering is only occurring in the $x$-direction so to first order then:
+\begin{align}
+\frac{qB_y(x)}{p} = \frac{1}{\rho} - kx ,\qquad \frac{qB_x(y)}{p} = ky .
+\end{align}
+
+
+\subsection{ Transport }
+If there is no acceleration just transport $\Delta p = 0$ so we get:
+\begin{align}
+x''(s) + K_x(s) x(s) = 0 , \qquad
+y''(s) + k(s) y(s) = 0
+\end{align}
+so for example, we can choose hard edge quads that are a constant $k(s) = -k < 0$ to get: 
+\begin{align}
+x''(s) + k x(s) = 0 , \qquad
+y''(s) - k y(s) = 0
+\end{align}
+which has exponential ( oscillatory and hyperbolic ) solutions with frequency $\sqrt{k}$. With solutions given by:
+\begin{align}
+\begin{bmatrix} x(s) \\ x'(s) \end{bmatrix} =
+\begin{bmatrix} \cos \sqrt{k}s & \frac{1}{\sqrt{k}} \sin \sqrt{k}s \\
+-\sqrt{k} \sin \sqrt{k}s & \cos \sqrt{k}s \end{bmatrix}
+\begin{bmatrix} x_0 \\ x'_0 \end{bmatrix}
+\end{align}
+\begin{align}
+\begin{bmatrix} y(s) \\ y'(s) \end{bmatrix} =
+\begin{bmatrix} \cosh \sqrt{k}s & \frac{1}{\sqrt{k}} \sinh \sqrt{k}s \\
+\sqrt{k} \sinh \sqrt{k}s & \cosh \sqrt{k}s \end{bmatrix}
+\begin{bmatrix} y_0 \\ y'_0 \end{bmatrix}
+\end{align}
+Instead of $p_x$ used in Hamiltonian formulations, we use the coordinate $x'$, which is the angle of the particle's velocity from the axis, usually given in $\si{mrad}$. It is related to $p_x$ by:
+\begin{align}
+x' = \frac{dx}{ds} = \tan \left( \frac{p_x}{p_s} \right) \approx \frac{p_x}{p_s}
+\end{align}
+since $p_s \gg p_x$. So we can represent the solution by a transfer matrix in there coordinates:
+\begin{align}
+\begin{bmatrix} x(s) \\ x'(s) \end{bmatrix} =
+\underbrace{\begin{bmatrix} C_x(s) & S_x(s) \\ C'_x(s) & S'_x(s) \end{bmatrix}}_{A(s)}
+\begin{bmatrix} x_0(s) \\ x'_0(s) \end{bmatrix} \implies \vec{x}(s) = A(s) \cdot \vec{x}(s_0)
+\end{align}
+where $C,S$ refer to either $\cos$, $\sin$ or $\cosh$, $\sinh$ if $k>0$ or $k<0$ respectively. In all dimensions we also consider the longitudinal distance to the reference particle $\lambda(s)$ and the relative momentum difference $\delta(s) = \frac{\Delta p}{p}$. 
+
+\subsection{Common Transfer Matrices}
+
+A drift is given by: 
+\begin{align}
+A_{\rm drift} = \begin{bmatrix} 1 & L \\ 0 & 1 \end{bmatrix}
+\end{align}
+since $x=x_0+x'_0L$ and $x' = x'_0$. A dipole magnet without edge focusing is:
+\begin{align}
+A_{\rm dipole} = \begin{bmatrix} \cos \alpha & \rho \sin \alpha \\ -1/\rho \sin \alpha & \cos \alpha \end{bmatrix}
+\end{align}
+where $\alpha [\si{rad}]$ is the angle of the dipole related to the length of the path that the particle takes in the magnet $L [\si{m}]$, and the bending radius $\rho [\si{m}]$ by $L = \rho \alpha$. The thin lens approximation for a quadrupole has:
+\begin{align}
+A_{\rm thin} = \begin{bmatrix} 1 & 0 \\ -\frac{1}{f} & 1 \end{bmatrix}
+\end{align}
+where $f$ is the focal length. $f>0$ corresponds to focusing and $f<0$ to defocussing. Relating this to the transfer matrix found previously as the solutions to Hill's equations 
+\begin{align}
+A_{\rm thin} = \begin{bmatrix} 1 & 0 \\ -kL & 1 \end{bmatrix}
+\end{align}
+for a focusing quad, where $k$ is given by $k=\frac{g}{B\rho}$, where $g$ is the field gradient. So we have, relating the two that $1/f \approx kL = \frac{gL}{B\rho}$ in the thin lens approximation.
+
+The drift in the longitudinal direction can be written:
+\begin{align}
+\begin{bmatrix} \lambda \\ \delta \end{bmatrix} =
+\begin{bmatrix} 1 & L/\gamma^2 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} \lambda_0 \\ \delta_0 \end{bmatrix}
+\end{align}
+which is to say that the relative momentum is the same but the distance from the reference particle changes based on the value of the relative velocity difference.
+
+\subsubsection{FODO Cell}
+A FODO cell consists of a focusing (F), drift (O), defocussing (D), and drift (O) elements. Commonly, the drifts are chosen to be the same length, in practice these are benders to keep the orbit circular in a synchrotron. It has a transfer matrix:
+\begin{align}
+A_{\rm fodo} = 
+\begin{bmatrix} 1 & 0 \\ -\frac{1}{2f_1} & 1 \end{bmatrix}
+\begin{bmatrix} 1 & d \\ 0 & 1 \end{bmatrix}
+\begin{bmatrix} 1 & 0 \\ -\frac{1}{f_2} & 1 \end{bmatrix}
+\begin{bmatrix} 1 & d \\ 0 & 1 \end{bmatrix}
+\begin{bmatrix} 1 & 0 \\ -\frac{1}{2f_1} & 1 \end{bmatrix}
+\end{align}
+when $f_1=-f_2 \equiv f$ it simplifies to:
+\begin{align}
+A_{\rm fodo} = 
+\begin{bmatrix} 1-\frac{d^2}{2f^2} & 2d \left( 1 + \frac{d}{2f} \right) \\ 
+- \frac{d}{2f^2}\left( 1 - \frac{d}{2f} \right) & 1-\frac{d^2}{2f^2} \end{bmatrix}
+\end{align}
+to recover the same angle at the start we set $f = d/2$ to find:
+\begin{align}
+A_{\rm fodo} = 
+\begin{bmatrix} -1 & 4d  \\ 0 & -1 \end{bmatrix}
+\end{align}
+which applies a $180^\circ$ phase advance.
+
+\subsection{ General Solution and Beta-function }
+The ansatz for the general solution is:
+\begin{align}
+x(s) = A u(s) \cos(\Psi(s)+\Psi_0)
+\end{align}
+where we define $\beta(s) = u^2(s)$, and the amplitude is $A = \sqrt{\epsilon}$ to get:
+\begin{align}
+x(s) =& \sqrt{\epsilon \beta} \cos(\Psi(s)+\Psi_0) \\
+x'(s) =& -\sqrt{\frac{\epsilon}{\beta}} \left[ \alpha(s) \cos(\Psi(s)+\Psi_0) + \sin(\Psi(s)+\Psi_0 )\right]
+\end{align}
+where:
+\begin{align}
+\Psi(s) = \int \frac{ds}{\beta(s)} , \qquad \alpha(s) = -\frac{1}{2}\beta'(s)
+\end{align}
+so we can define:
+\begin{align}
+\gamma(s) = \frac{1+\alpha^2(s)}{\beta(s)}
+\end{align}
+to get the equation for a $x$-$x'$ space ellipse:
+\begin{align}
+\gamma x^2 + 2 \alpha x x' + \beta x'^2 = \epsilon
+\end{align}
+the ellipse has the following properties:
+\begin{align}
+x'_{\rm max} = \sqrt{\epsilon \gamma} ,\qquad x'_{\rm int} = \sqrt{\frac{\epsilon}{\beta}} \\
+x_{\rm max} = \sqrt{\epsilon \beta} ,\qquad x_{\rm int} = \sqrt{\frac{\epsilon}{\gamma}}
+\end{align}
+where the area of the ellipse is $A = \pi \epsilon$. The set $\alpha, \beta, \gamma$ are the TWISS parameters and they fully describe the phase space ellipse to first order.
+
+\subsection{ Periodic Sections }
+
+The transfer matrix of a single cell of a periodic section can be written:
+\begin{align}
+M_{\rm cell} = \begin{bmatrix}
+\cos \mu + \alpha_{cs} & \beta_{cs} \sin \mu \\
+- \gamma_{cs} \sin \mu & \cos \mu - \alpha_{cs} \sin \mu
+\end{bmatrix}
+ = \mathbf{1} \cos \mu + \mathbf{J} \sin \mu
+\end{align}
+where 
+\begin{align}
+\mathbf{J} = \begin{bmatrix}
+\alpha_{cs} & \beta_{cs} \\ - \gamma_{cs} & - \alpha_{cs} \end{bmatrix}
+\end{align}
+and $\mu$ is called the phase advance, and $\gamma, \alpha, \beta$ are the Twiss parameters.
+
+
+\section{Envelope}
+
+The transport equations and solution is given by:
+\begin{align}
+\frac{d \vec{X}}{ds} = F \vec{X} ,\qquad
+\vec{X}_f = M \vec{X}_i
+\end{align}
+where $M = \exp( \int F ds )$ over the integrated length of the beam path. So we can find the equations of motion for statistical variables:
+\begin{align}
+\langle \vec{X} \rangle = \frac{1}{N} \sum_{i=1}^{N} \vec{X}, \qquad
+\sigma = \frac{1}{N} \sum_{i=1}^{N} \vec{X} \vec{X}^T
+\end{align}
+so we have the equations of motion:
+\begin{align}
+\langle \vec{X} \rangle' = F_{\rm ext}\langle \vec{X} \rangle, \qquad
+\sigma' = F \sigma + \sigma F^T
+\end{align}
+with solutions:
+\begin{align}
+\langle \vec{X} \rangle_f = M \langle \vec{X} \rangle_i, \qquad
+\sigma_f  = M \sigma_i M^T 
+\end{align}
+
+\section{Luminosity}
+
+For a simple beam model, with beam intersection area $A$, bunch number $N_p$, and frequency of bunches $f_b$:
+\begin{align}
+\mathcal{L} = \frac{N_p^2 f_b}{A}
+\end{align}
+where the rate of interactions is given by:
+\begin{align}
+\Gamma = \mathcal{L} \sigma_p
+\end{align}
+where $\sigma_p$ is the cross-section for the interaction.
+
+\section{Emittance}
+
+Phase space ellipses can be described by the Twiss parameters $\alpha$, $\beta$, and $\gamma$ where the emittance $\varepsilon$ is given by:
+\begin{align}
+\varepsilon = \gamma(s)x^2 + 2 \alpha(s)x x' + \beta(s) x'^2, \qquad \gamma(s) = \frac{1+\alpha^2(s)}{\beta(s)}
+\end{align}
+Emittance determines the movement of the particles on the beam envelope in phase space and defines the phase space volume of the beam.
+\begin{align}
+A_{xx'} = \frac{1}{p_s}\iint dx \cdot dp_x = \frac{1}{\gamma m_0 \beta c} \iint d x \cdot dp_x = \iint dx \cdot dx' \\
+\implies \varepsilon_{xx'} = \frac{A_{xx'}}{\pi} = \frac{1}{\pi}\iint dx \cdot dx'
+\end{align}
+
+In practice with general statistical shapes of beam, the emittance is evaluated given by the root mean square of the beam in phase space:
+\begin{align}
+\varepsilon_{\rm RMS} = \sqrt{\langle x^2 \rangle \langle x'^2 \rangle- \langle xx' \rangle^2}
+\end{align}
+where the Twiss parameters are now:
+\begin{align}
+\beta_{\rm RMS} = \frac{\langle x^2 \rangle}{\varepsilon_{\rm RMS}}, \qquad
+\gamma_{\rm RMS} = \frac{\langle x'^2 \rangle}{\varepsilon_{\rm RMS}}, \qquad
+\alpha_{\rm RMS} = \frac{\langle x x' \rangle}{\varepsilon_{\rm RMS}}.
+\end{align}
+Normalized emittance is preserved with acceleration:
+\begin{align}
+\varepsilon_{\rm N} = \beta_{\rm rel} \gamma_{\rm rel} \varepsilon
+\end{align}
+where $\varepsilon$ is the geometric emittance.
+
+\subsection{Emittance Conservation}
+
+The Emittance is conserved by Liouville's theorem (phase space volume is conserved along the equations of motion). We can express this via transfer matrices considering the Wronskian of our general transfer matrix $A$:
+\begin{align}
+A = \begin{bmatrix} C(s) & S(s) \\ C'(s) & S'(s)\end{bmatrix} \implies 
+W = \begin{vmatrix} C(s) & S(s) \\ C'(s) & S'(s)\end{vmatrix} = CS'-C'S 
+\end{align}
+therefore $\frac{dW}{ds} = 0$ and given that the identity matrix is a valid transfer matrix with determinant one, so we find that $W=1$ for all transfer matrices.
+
+\subsection{ Twiss Transformation }
+
+The Twiss parameters transform according to:
+\begin{align}
+\begin{bmatrix} \beta \\ \alpha \\ \gamma \end{bmatrix} =
+\begin{bmatrix} c^2 & -2sc & s^2 \\ -cc' & cs'+sc' & -ss' \\ c'^2 & -2s'c' & s'^2 \end{bmatrix}
+\begin{bmatrix} \beta_0 \\ \alpha_0 \\ \gamma_0 \end{bmatrix}
+\end{align}
+where $c$ and $s$ correspond to $C(s)$ and $S(s)$ respectively which are the components of the transfer matrix of interest. It can be derived using the fact that the emittance expression:
+\begin{align}
+\varepsilon = \gamma x^2 + 2 \alpha x x' + \beta x'^2 = \gamma_0 x^2 + 2 \alpha_0 x x' + \beta_0 x'^2
+\end{align}
+can be written:
+\begin{align}
+\varepsilon = \vec{x}^T \tau \vec{x} = \begin{bmatrix} x & x' \end{bmatrix} \begin{bmatrix} \gamma & \alpha \\ \alpha & \beta \end{bmatrix} \begin{bmatrix} x \\ x' \end{bmatrix} 
+= \vec{x}^T_0 \tau_0 \vec{x}_0 = \begin{bmatrix} x_0 & x'_0 \end{bmatrix} \begin{bmatrix} \gamma_0 & \alpha_0 \\ \alpha_0 & \beta_0 \end{bmatrix} \begin{bmatrix} x_0 \\ x'_0 \end{bmatrix}
+\end{align}
+and then solved for the Twiss parameters as a function of the initial Twiss parameters and the transfer matrix.
+
+
+\section{Dispersion}
+The transverse equations of motion:
+\begin{align}
+x'' + \left( \frac{1}{\rho}- k(s) \right)\cdot x =& h(s) \delta \\
+y'' + k(s) \cdot y =& 0
+\end{align}
+where $h(s) = 1/\rho(s)$ and $\delta= \Delta p / p_0$. We define $x_\delta(s) = x_D(s) + x(s)$ so the equation of motion is $x''_\delta + k_x x_\delta = h \delta$. So we can get the inhomogeneous Hill's equations for the dispersion function:
+\begin{align}
+D''(s) + k_x(s)D(s) = h(s)
+\end{align}
+where $D(s)$ is the Dispersion function. The solution $x_\delta$ is:
+\begin{align}
+x_\delta(s) = x_D(s) + x(s) = x(s) + D(s)\frac{\Delta p}{p}
+\end{align}
+The `Momentum Compaction Factor', $\alpha_p$ is the relative change in the orbit length to the relative momentum deviation given by:
+\begin{align}
+\alpha_p = \frac{\Delta C/C_0}{\Delta p / p_0}
+\end{align}
+Note for a linear accelerator $\alpha_p = 0$. Now, integrating over the path lengths:
+\begin{align}
+C+\Delta C = \oint ds + \oint \frac{x_D}{\rho}ds \implies \Delta C = \oint \frac{x_D}{\rho}ds = \frac{\Delta p}{p_0}\oint \frac{D(s)}{\rho}ds
+\end{align}
+so we found $\Delta C$ which gives:
+\begin{align}
+\alpha_p = \frac{1}{C_0} \oint \frac{D(s)}{\rho}ds
+\end{align}
+
+\subsection{ Slip Factor }
+
+In a synchrotron $\omega = 2 \pi \frac{v}{C}$ so we can write:
+\begin{align}
+\frac{\Delta \omega}{\omega_0} = \frac{\Delta v}{v_0} - \frac{\Delta C}{C_0}
+\end{align}
+where we know $\Delta v/v_0 = \gamma^{-2} \Delta p / p_0$ so we can write:
+\begin{align}
+\frac{\Delta \omega}{\omega_0} = \left( \gamma^{-2} - \alpha_p \right)  \frac{\Delta p}{p_0} = \eta \frac{\Delta p}{p_0}
+\end{align}
+we defined $\eta$, called the `slip factor' defined by:
+\begin{align}
+\eta = \frac{1}{\gamma^2} - \alpha_p 
+\end{align}
+so we can define $\gamma_t$ to be given by the velocity at which $\eta=0$, the energy that this happens at is the transition energy, $E_{\rm tr}$. 
+
+If $\gamma < \gamma_t$ then $\eta > 0$, so $\Delta \omega $ increases with $\Delta p$. If $\gamma > \gamma_t$ then $\eta < 0$ and $\Delta \omega $ decreases with $\Delta p$. If $\gamma = \gamma_t$ then $\eta=0$ and the particles circulate isochrone in a ring independent of their momentum.
+
+
+While accelerating heavy ions, increasing $\gamma$, when $\gamma < \gamma_t$ then transitions to $\gamma > \gamma_t$ the syncronous RF phase goes from $\varphi_s$ to $\pi - \varphi_s$, this is called a phase jump.
+
+
+\subsection{ RF Phase and Slip Factor }
+The relation between the rf-phase and orbit angle:
+\begin{align}
+\Delta \phi = - h \cdot \Delta \theta
+\end{align}
+where $\Delta \phi$ is the distance from the synchronous RF phase, and $\Delta \theta$ is the orbit angle.
+\begin{align}
+\Delta \omega_s = \frac{d}{dt} \Delta \theta = - \frac{1}{h} \frac{d}{dt} \Delta \phi = \omega_s \eta_s \frac{\Delta p}{p_s}
+\end{align}
+\begin{align}
+\frac{d}{dt} \Delta \phi = - h \omega_s \eta_s \frac{\Delta p}{p_s} = - \frac{h \omega_s \eta_s}{\beta^2} \frac{\Delta E}{E_s} = - h \frac{h \omega_s^2 \eta_s}{\beta^2 E_s} \left( \frac{\Delta E}{\omega_s} \right)
+\end{align}
+
+\subsection{Longitudinal Equations of Motion}
+\begin{align}
+\Delta p = \frac{\Delta E}{c \beta} = \frac{q U_{\rm eff}}{\beta c} \sin \phi_s = \frac{q U_{\rm eff}}{R \omega} \sin \phi_s
+\end{align}
+where $U_{\rm eff} = U_0 T$ and $T$ is the `transit time factor' that describes the reduction of energy gain in an acceleration gap due to a time varying field compared to the energy gain in a DC field  described by $E_0 = g U_0$ where $g$ is the gap length. $T$ can be computed by:
+\begin{align}
+T = \left[ \int_{-g/2}^{g/2} E_s(s) \cos(\omega_{\rm HF} t ) ds \right] \left[ \int_{-g/2}^{g/2} E_s(s) ds \right]^{-1} \leq 1
+\end{align}
+where we can express the arguments of the cosine as:
+\begin{align}
+\omega_{\rm HF} t = \omega \int \frac{ds}{v(s)} \approx \omega \frac{s}{v(s)} = \frac{2 \pi s}{T_{\rm HF} \beta c} = \frac{2 \pi s}{\beta \lambda}
+\end{align}
+for a constant electric field $E_s = E_0$ we can directly compute $T$:
+\begin{align}
+T = \frac{\beta \lambda}{\pi g} \sin \left( \frac{\pi g}{\beta \lambda} \right).
+\end{align}
+
+One can write the energy by the acceleration cavity per turn using:
+\begin{align}
+\Delta E_s^{\rm HF} = q g E_0 T \sin \varphi_s = q U_{\rm eff} \sin \varphi_s = q R \dot{B} C_s
+\end{align}
+and then we find a DE for the energy spread:
+\begin{align}
+\frac{d}{dt} \left( \frac{\Delta E}{\omega } \right) = \frac{q}{2 \pi }U_{\rm eff} (\sin \phi - \sin \varphi_s)
+\end{align}
+Combining all of these components lets us finally describe the angular synchrotron frequency:
+\begin{align}
+\omega_{syn} = \omega_s \sqrt{ \frac{h \eta_s}{2 \pi \beta^2 E_s} q U_{\rm eff} \cos \varphi_s }
+\end{align}
+where $\nu_{\rm syn} = \omega_{syn}/2\pi$ is the `synchrotron frequency' which is the frequency at which particles oscillate around the synchronous particle.
+Since we have a new oscillation frequency, we describe the `longitudinal tune' as:
+\begin{align}
+Q_{\rm syn} = \frac{\omega_{syn}}{\omega_s} =  \sqrt{ \frac{h \eta_s}{2 \pi \beta^2 E_s} q U_{\rm eff} \cos \varphi_s }
+\end{align}
+and we can write a Hill's equation for $\Delta \phi$ the relative RF angle:
+\begin{align}
+\frac{d^2}{dt^2}\Delta \phi + \omega_{\rm syn}^2 \Delta \phi = 0
+\end{align}
+
+\subsection{ Separatrix }
+The longitudinal phase space ellipse, in $(\Delta E, \Delta \phi)$, is given by:
+\begin{align}
+\left( \frac{\Delta \phi}{\Delta \phi_{\rm max}} \right)^2 + \left( \frac{\Delta E}{\Delta E_{\rm max}} \right)^2 = 1
+\end{align}
+and is valid close to $\varphi_s$ since the solutions to Hill's equations in these dimensions are:
+\begin{align}
+\Delta \phi = \Delta \phi_{\rm max} \cos (\omega_{\rm syn } t) , \qquad
+\Delta E = \Delta E_{\rm max} \sin (\omega_{\rm syn } t)
+\end{align}
+where $ \Delta \phi_{\rm max}$ is given by $\pi - \varphi_s$ and we can write the other amplitude as: 
+\begin{align}
+\Delta E_{\rm max} = Q_{\rm syn} \frac{\beta^2 E_s}{h \eta_s} \Delta \phi_{\rm max}
+\end{align}
+This approximation breaks for larger orbits, as they become more teardrop shaped as they approach the `Separatrix', which is the boundary between the stable and unstable orbits. 
+
+\section{Optical Elements}
+
+\subsection{Dipole}
+Dipoles come in three varieties, depending on the cross-section of the yoke and coil: C-Magnet, H-Magnet, and Window-Frame Magnet.
+
+The magnetic field in the dipole is given by the current $I$, number of turns, $n$, and the distance between the poles $h$ in the following manner:
+\begin{align}
+B_0 = \mu_0 \frac{nI}{h}
+\end{align}
+
+\subsection{Quadrupole}
+
+The quadrupole field gradient is given by the number of turns $n$, current $I$, and radius of the quadrupole aperture:
+\begin{align}
+g = B' = \frac{2 \mu_0 n I}{R^2}
+\end{align}
+
+\subsection{Fringe Field}
+
+There is always a field present outside of the iron yoke, called the fringe field. We can define an effective length, $L_{\rm eff}$, which takes this into account:
+\begin{align}
+L_{\rm dipole} = \frac{1}{B_0} \int_{-\infty}^{\infty} B(s) \, ds ,\qquad
+L_{\rm quad} = \frac{1}{g_0} \int_{-\infty}^{\infty} g(s) \, ds
+\end{align}
+where it can usually be related to the length of the yoke $L_{\rm fe}$ (fe for iron in yoke) by:
+\begin{align}
+L_{\rm dipole} \approx L_{\rm fe} + 1.3 h ,\qquad
+L_{\rm quad} \approx L_{\rm fe} + R
+\end{align}
+where $h$ is the height of the gap in the dipole and $a$ is the aperture radius of the quad.
+
+\subsection{Solenoid}
+We find the constant $k$, the restoring force amplitude in Hill's equations to be for a solenoid, 
+\begin{align}
+k = \frac{B_s^2}{4(B \rho)^2}
+\end{align}
+which, in the thin lens approximation, corresponds a focal length of:
+\begin{align}
+\frac{1}{f} \approx -\left( \frac{q}{2m} \right)^2 \frac{B_0^2 L_{\rm eff}}{c^2 \beta^2}
+\end{align}
+
+\subsection{Einzel Lens}
+The electrostatic equivalent of the solenoid, with a focusing then defocussing DC electric field, which has the thin lens focal strength given by:
+\begin{align}
+\frac{1}{f} \approx \frac{1}{8\sqrt{U_0}} \int_{s_1}^{s_2} \frac{(V')^2}{(U_0-V)^{3/2}}ds
+\end{align}
+where $U_0$ is the starting potential of the ions. 
+
+A particular case of an anode aperture is a divergent lens for all extraction systems:
+\begin{align}
+f \approx -\frac{4U_0}{E_1} = - \frac{4U_0}{E_{\rm anode}}
+\end{align}
+
+\subsection{ Multipoles }
+For a straight reference trajectory, then $A_s$ depends on $x,y$ and $\nabla^2 A_s = 0$ so we have the following solution:
+\begin{align}
+A_s = \Re \left[ \sum_n C_n (x + iy)^n \right]
+\end{align}
+where the $n = 1,2,3$ term in the series is the dipole, quadrupole, sextupole, etc. The complex term $C_n$ has the real and imaginary components where the imaginary component is called the `skew' component. For dipoles, the real component is a field in the $y$-direction, and the imaginary component has a field in the $x$-direction.
+
+
+\section{RF Accelerator}
+
+Particles traveling through a series of tubes to which an alternating current is applied such that when the particle exits a tube it is accelerated by the potential difference between the tube it left and the next. The field-free drift tubes shield the ions from the electric field while it reverses direction. The beam must be bunched into short pulses or `bunches' separated by the radio frequency period $T_{\rm rf}$. 
+
+Wideroe condition: the time to travel from center of gap $i$ to gap $i+1$ is half the RF-cycle time  $T_{\rm rf}$. So the velocity is approximately:
+\begin{align}
+v_i = \sqrt{ \frac{2 q \cdot i U_{acc}}{m} } = \beta_i c,
+\end{align}
+and the length of the $i^{\rm th}$ drift tube is given by:
+\begin{align}
+l_i = \frac{v_i T_{\rm rf}}{2} = \frac{\beta_i \lambda_{\rm rf}}{2}.
+\end{align}
+
+\section{Cyclotron}
+
+Particles traveling in a dipole field of strength $B$, using the Lorentz force law, undergo circular motion with frequency:
+\begin{align}
+\omega_c = \frac{q}{m}B
+\end{align}
+independent of velocity, where the radius of motion is:
+\begin{align}
+r = \frac{mv}{qB} = \frac{p}{qB}
+\end{align}
+
+\subsection{Sector-focused Cyclotrons}
+Having alternating high $(B_h)$ and low $(B_v)$ field sectors in a cyclotron allow for edge focusing at regular intervals. The angle at which the orbits cross the sector edges is given by the `Thomas Angle' written:
+\begin{align}
+\kappa = \frac{\pi}{N} \frac{(B_h-\bar{B})(\bar{B}-B_v)}{(B_h-B_v)\bar{B}}
+\end{align}
+where $N$ is the number of sectors.
+
+\section{Synchrotron}
+Synchrotrons are strongly focused circular machines using mostly series of FODO cells for focusing, RF accelerators for acceleration and dipoles for circularity. 
+\begin{align}
+\rho = \frac{p}{qB} = \frac{\gamma m \beta c}{qB},\qquad \omega_c = \frac{qB}{m\gamma}
+\end{align}
+so we can write:
+\begin{align}
+\frac{d \omega_c}{dB} = \frac{q}{m \gamma^3} \implies \dot{\omega} = \frac{q \dot{B}}{m \gamma^3}
+\end{align}
+The revolution frequency is given approximately by:
+\begin{align}
+f_u = \frac{\omega}{2 \pi} = \frac{\beta c}{L} \approx \frac{\beta c}{2 \pi \rho} = \frac{qB}{2\pi \gamma m}
+\end{align}
+since they are not quite circular, where $L$ is the ring circumference. The RF frequency is then:
+\begin{align}
+f_{RF} = h f_u = \frac{h \beta c}{L}
+\end{align}
+where $h$ is the harmonic on which the RF accelerators are operating on. Hence, the lowest RF frequency is where $h=1$ so $f_{RF} = f_u$.
+
+
+\section{Space Charge}
+
+The space charge force for a uniform cylindrical beam of charge density $\rho_0$ and radius $R$ has electric field given by:
+\begin{align}
+E(r) = \begin{cases}
+-\frac{\rho_0 r}{2 \epsilon_0} & r<R \\
+-\frac{\rho_0 R^2}{2 \epsilon_0 r} & r>R
+\end{cases}
+\end{align}
+and hence potential given by:
+\begin{align}
+U(r) = \begin{cases}
+\frac{\rho_0 r^2}{4 \epsilon_0} + U_0 & r<R \\
+\frac{\rho_0 R^2}{4 \epsilon_0 } \left[ 2 \ln(r/R)+1 \right] + U_0 & r>R
+\end{cases}
+\end{align}
+where $U_0$ is the potential at the center of the beam. Hence the potential difference between the wall and center of the beam is:
+\begin{align}
+\Delta U_W = \frac{\rho_0 R^2}{4 \epsilon_0 } \left[ 2 \ln(r_W/R)+1 \right] 
+\end{align}
+where $r_W$ is the radius of the wall. The potential difference between the beam edge and the center of the beam is:
+\begin{align}
+\Delta U = \frac{\rho_0 R^2}{4 \epsilon_0 } 
+\end{align}
+The charge density can be related to the current density by $J = \rho_0 v_s = \frac{I}{\pi R^2}$ so we find:
+\begin{align}
+\rho_0 = \frac{I}{\pi R^2 v_s}
+\end{align}
+where $v_s = c \beta$ can be found using the energy of the beam.
+
+The self magnetic field is azimuthal and is given by:
+\begin{align}
+B_\phi(r) = \frac{\mu_0}{2}\, j \cdot r = \frac{\mu_0}{2}\rho_0 \beta c \cdot r
+\end{align}
+which has a focusing effect. So the Lorrentz force is given by:
+\begin{align}
+F_r(r) = q(E_r - vB_\phi) = q \frac{\rho_0}{2 \epsilon_0}(1-\beta^2 ) \cdot r = q \frac{\rho_0}{2 \epsilon_0 \gamma^2 } \cdot r 
+\end{align}
+one defines the `degree of compensation' $f \leq 1$ so we can write:
+\begin{align}
+E(r) = \frac{\rho_0 r}{2 \epsilon_0}(1-f) \implies F_r(r) = q \frac{\rho_0}{2\epsilon_0}(1-f-\beta^2)\cdot r 
+\end{align}
+where if the self fields focus the beam it is called a `pinch effect'.
+
+
+\section{ Ion Sources }
+
+\subsection{ Plasmas }
+
+Plasmas are described by the number density, $n_e$ for electrons, $n_0$ for neutral atoms and $n_i$ for ions in the $i^{\rm th}$ charge state where $i$ electrons have been freed. Since the source is a neutral gas we have an expression for conservation:
+\begin{align}
+n_e = \sum_i q_i n_i
+\end{align}
+where $q_i$ is the ion charge in units of $-e$, so it is an integer. The degree of ionization is:
+\begin{align}
+P_i = \frac{n_i}{n_i + n_0}
+\end{align}
+a plasma is highly ionized if $P_i > 0.1$.
+The electrons act as a cloud or wave medium with fundamental frequency:
+\begin{align}
+\omega_p^2 = \frac{e^2 n_e}{m_e \epsilon_0}
+\end{align}
+often the frequency $f_p = \omega_p / 2\pi$ is used, for example, $1/f_p$ is the characteristic time in which the plasma can react to a disturbance. Electromagnetic waves with $f < f_p$ cannot pass through the plasma. The `Debye length' is the characteristic length that this screening can occur given by:
+\begin{align}
+\lambda_D = \sqrt{\frac{\epsilon_0 k_B T}{n_e e^2}}
+\end{align}
+
+In a low density hot plasma, ionization is due to collisions of electrons and atoms. The number density of the different populations can be described by, for example the ratio of number densities in change state $i+1$ to charge state $i$ is given by:
+\begin{align}
+\frac{n_{i+1} n_e}{n_i} = \frac{2}{\Lambda^3} \frac{g_{i+1}}{g_i} \exp \left[ - \frac{ \varepsilon_{i+1} - \varepsilon_i }{k_B T} \right]
+\end{align}
+where $n_e$ is electron number density, $g_i$ is the degeneracy of the $i^{\rm th}$ charge state given by $g_i = 2 J_i + 1$, $J_i$ is the total angular momentum. $\varepsilon_i$ is the ionization energy too remove $i$ electrons from a neutral atom, $\Lambda$ is the de Broglie wavelength of the electrons:
+\begin{align}
+\Lambda = \sqrt{ \frac{h^2}{2 \pi m_e k_B T}}
+\end{align}
+The electron number density on a hot surface due to thermal ionization is:
+\begin{align}
+n_e = \frac{2}{\Lambda^3} \exp \left[ - \frac{\varphi}{k_B T} \right]
+\end{align}
+where $\varphi$ is the work function of the surface material, which is the energy needed to release an electron.
+From these we can compute the first ratio of densities for a hot thermal surface:
+\begin{align}
+\frac{n_1}{n_0} = \frac{g_1}{g_0} \exp \left[ \frac{ \varphi - \varepsilon_1 }{k_B T} \right]
+\end{align}
+
+\subsection{ Beam Formation }
+Consider the emission of charged particles from an infinite source surface into an acceleration gap where the particles start off with zero velocity. There is then created a constant current density $J$ and particle density $n(z)$. 
+\begin{align}
+J = q \cdot n(z) \cdot v_z(z)
+\end{align}
+we then relate the kinetic energy at a specific point to the potential across the gap as:
+\begin{align}
+v_z(z)^2 = -\frac{2}{m_0} q \phi(z)
+\end{align}
+we find the Poisson equation for the potential is:
+\begin{align}
+\frac{d^2 \phi}{dz^2} = -\frac{q n(z)}{\epsilon_0} = -\frac{J }{\epsilon_0 } \sqrt{\frac{m_0}{2 |q \phi(z)| }}
+\end{align}
+with boundary conditions $\phi(0)=0$, $\phi(d) = V_0$ and $\phi'(0) = 0$ gives the solutions:
+\begin{align}
+J_0 = \frac{4 \epsilon_0}{9} \sqrt{ \frac{2 q}{m_0}} \frac{V_0^{3/2}}{d^2} ,\qquad
+\phi(z) = V_0 \left( \frac{z}{d} \right)^{4/3}
+\end{align}
+which also turns out to be a good approximation for cylindrical beams with $2 r_a \ll d $ where $r_a$ is the anode radius. For a cylindrical beam, we can integrate over the current density $J$, to find the current is:
+\begin{align}
+I_0 = \frac{4 \epsilon_0}{9} \sqrt{ \frac{2 q}{m_0} } \frac{ \pi r_a^2 }{d^2} V_0^{3/2} = P \cdot V_0^{3/2}
+\end{align}
+where we call $P$ the `perveance', and is the coefficients out front.
+
+The aperture of the extraction electrode is a defocussing electrostatic element with a focal length given approximately:
+\begin{align}
+f \approx \frac{4 T}{q(E_2-E_1)}
+\end{align}
+where $T$ is the kinetic energy, $E_1$ and $E_2$ are the electric field strengths before and after the aperture.
+
+The emittance of the beam in the transverse $(x,y)$ directions is given by the momentum distribution due to thermal energy so we can write the mean momentum from the mean of a Boltzmann velocity distribution and then the normalized RMS emittance is simply:
+\begin{align}
+\langle x' \rangle = \frac{1}{v_z}\sqrt{\frac{k_B T}{m_0}}
+\implies \varepsilon^* = \beta \gamma \langle x \rangle \langle x' \rangle = r_a \sqrt{ \frac{k_B T}{m c^2}}
+\end{align}
+a quantity related to the emittance is the `Brightness' given by:
+\begin{align}
+B = \frac{I}{\pi^2 (\varepsilon^*)^2 } = \frac{ m c^2 J}{\pi k_B T}
+\end{align}
+
+If the ions in a plasma have velocity distributed according to a Maxwell velocity distribution:
+\begin{align}
+g(v_z) = \sqrt{\frac{2 m_1}{\pi k_B T_i}} \exp \left[ -\frac{m_i v_z^2}{2 k_B T_i} \right]
+\end{align}
+so ions crossing a plane with velocity $v_z$:
+\begin{align}
+\frac{\Delta N(v_z)}{\Delta t} = - n_i v_z g(v_z) d v_z
+\end{align}
+integrating over all velocities:
+\begin{align}
+\frac{d N}{dt} = n_i  \sqrt{\frac{k_B T_i}{2 \pi m_i}}
+\end{align}
+so we can write current density as $J = q \frac{dN}{dt}$.
+
+\subsection{ Magnetic Confinement }
+
+The Lorentz force due to a magnetic field is $\vec{F} = q \vec{v} \times \vec{B}$ so in a constant magnetic field, the velocity perpendicular velocity undergoes uniform circular motion with frequency $\omega_c = \frac{qB}{m}$, the cyclotron frequency. The Lamor radius describes the radius of the uniform circular motion due to velocity from the thermal energy:
+\begin{align}
+r_L = \frac{\sqrt{2m k_B T}}{qB}
+\end{align}
+
+A charged particle on a circular orbit has a magnetic moment:
+\begin{align}
+\vec{\mu}_m = \frac{1}{2} q \omega r^2 \vec{n}_F
+\end{align}
+where $\vec{n}_F$ is the unit normal vector, and we can re-express this in terms of $W_p$ the energy of motion perpendicular to the magnetic field:
+\begin{align}
+\vec{\mu}_m = \frac{q^2}{2 m} B r_L^2 \vec{n}_F = \frac{m v_p^2}{2B} \vec{n}_F = \frac{W_p}{B} \vec{n}_F
+\end{align}
+if the parallel drift velocity is small compared to $v_p$ then the magnetic moment will be approximately constant. If the total kinetic energy is $W = W_p + W_l = \frac{m}{2}( v_p^2 + v_l^2 )$ then in a magnetic mirror with a high field region, $B_2$ at the edges and a low field region $B_1$ in the center then:
+\begin{align}
+\vec{\mu}_{m1} = \vec{\mu}_{m2} \implies \frac{W_{p1}}{B_1} = \frac{W_{p2}}{B_2}
+\end{align}
+then the difference in perpendicular energy of motion is:
+\begin{align}
+\Delta W_p = W_{p2} - W_{p1} \leq W_{l1}
+\end{align}
+hence the particle will return if $\Delta W_p = W_{l1}$, namely:
+\begin{align}
+\frac{B_2}{B_1} - 1 = \frac{W_{l1}}{W_{p1}} = \left( \frac{v_{l1}}{ v_{p1} } \right)^2 = \cot^2 \alpha
+\end{align}
+where $\alpha$ is the angle between $v_p$ and $v_l$. Therefore particles are reflected if:
+\begin{align}
+\alpha \geq \acot \left( \sqrt{B_2/B_1 -1 }\right)
+\end{align}
+otherwise the particles are not confined. Rearranging the space charge limited flow through the extraction gap from Child's law for the gap length:
+\begin{align}
+d = \left( \frac{2 q}{m_0} \right)^{1/4} \left( \frac{2 \epsilon_0 \pi r_a^2}{9 I_0} V_0^{3/2} \right)^{1/2}
+\end{align}
+
+\section{ Hamiltonian Formalism }
+We can write the relativistic energy as:
+\begin{align}
+E = \gamma m c^2 \implies E^2 = m^2 c^4 + c^2 p^2
+\end{align}
+and since the electric potential modifies the total energy, $E \rightarrow E-q\Phi$ and the canonical momentum $\vec{P}$ is substituted for $\vec{p}$ using $\vec{P} = \vec{p} + q \vec{A}$:
+\begin{align}
+(E-q\Phi)^2 = m^2 c^4 + c^2 (\vec{P} - q \vec{A})^2
+\end{align}
+so we have the canonical pairs $(-E,t)$ and $(P_i, x_i)$. So we can solve for $E$ to find the Hamiltonian:
+\begin{align}
+H = q\Phi + \sqrt{ m^2 c^2 + c^2 (\vec{P}-q \vec{A})^2}
+\end{align}
+and associated Hamilton's equations:
+\begin{align}
+\frac{dx_i}{dt} = \frac{\di H}{\di P_i} ,\qquad 
+\frac{d P_i}{dt} = -\frac{\di H}{\di x_i} , \qquad
+\frac{d E}{dt} = \frac{\di H}{\di t}
+\end{align}
+Upon a change of canonical coordinates we have the canonical pairs: $(x,P_x), (y,P_y), (s,P_s), (t,-E)$ so the $s$-based Hamiltonian sets $H = -P_s$ to find:
+\begin{align}
+H_s = -q A_s - \left( 1 + \frac{x}{\rho}\right)\sqrt{ \frac{1}{c^2}(E-q\Phi)^2-m^2 c^2 - (P_x - qA_x)^2- (P_y - qA_y)^2}
+\end{align}
+with equations of motion:
+\begin{align}
+\frac{dx}{ds} = \frac{\di H_s}{\di P_x} ,\qquad 
+\frac{d P_x}{ds} = - \frac{\di H_s}{\di x} , \qquad
+\frac{dy}{ds} = \frac{\di H_s}{\di P_y} ,\qquad 
+\frac{d P_y}{ds} = - \frac{\di H_s}{\di y} \\
+\frac{dt}{ds} = \frac{\di H_s}{\di(-E)} , \qquad 
+\frac{d(-E)}{ds} = - \frac{\di H_s}{\di t}, \qquad
+\frac{d P_s}{ds} = - \frac{\di H_s}{\di s}
+\end{align}
+
+\end{document}
