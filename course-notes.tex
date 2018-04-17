@@ -4,6 +4,7 @@
 \usepackage{macros}
 \usepackage{amsmath}
 \usepackage{pdfpages}
+\usepackage{circuitikz}
 
 \title{PHYS 522 \\ Accelerator Physics}
 \author{ Paul M. Jung }
@@ -18,38 +19,160 @@
 
 \section{Basic Quantities}
 
+\begin{center}
 \begin{tabular}{ c }
 $1 eV$ = $1.6022 \cdot 10^{-19}$ J \\
-$m_e = 9.109 \cdot 10^{-31} $ kg \\
 $m_p = 1.672 \cdot 10^{-27}$ kg \\
 $u = 1.6606 \cdot 10^{-27}$ kg \\
+$m_e = 9.109 \cdot 10^{-31} $ kg \\
 $e = 1.6022 \cdot 10^{-19}$ A$\cdot$s
 \end{tabular}
+\quad
+\begin{tabular}{ c }
+$m_p = 938 \,\si{MeV/c^2}$ \\
+$u = 931.5 \,\si{MeV/c^2} $ \\
+$m_e = 0.51 \,\si{MeV/c^2}$ \\
+$m_\mu = 105.7 \,\si{MeV/c^2}$ 
+\end{tabular}
+\end{center}
+\begin{center}
+\begin{tabular}{ c c | c c | c c  }
+Tera (T) & $10^{12}$ & Mega (M) & $10^9$ & Kilo (k) & $10^3$ \\ \hline
+Milli (m) & $10^{-3}$ & Micro ($\mu$) & $10^{-6}$ & Nano (n) & $10^{-9}$ 
+\end{tabular}
+\end{center}
 
 \section{Classical Laws}
 The Lorentz force law:
 \begin{align}
 \vec{F} = q \cdot \vec{E} + q \cdot \vec{v} \times \vec{B}
 \end{align}
+is a relativistically valid (provided you set $F = \frac{d}{dt} p$) description of how the electromagnetic fields apply forces to charged point-like particles.
 
 \section{Relativistic Parameters}
 Momentum is given by 
 \begin{align}
-p = \gamma m_0 v
+p = \gamma m v
 \end{align}
 energy is given by:
 \begin{align}
-E = \sqrt{p^2 c^2 + m^2 c^4} = \gamma m_0 c^2
+E = \sqrt{p^2 c^2 + m^2 c^4} = \gamma mc^2
 \end{align}
 and can be split into rest energy and kinetic energy by:
 \begin{align}
-E = E_{\rm kin} + m_0 c^2 \implies E_{\rm kin} = \left( \gamma -1 \right) m_0 c^2
+E = E_{\rm kin} + m c^2 \implies E_{\rm kin} = \left( \gamma -1 \right) m c^2
 \end{align}
 
 Useful equations are:
 \begin{align}
-\gamma = \frac{E_{kin}}{m_0 c^2}+1 , \qquad \beta = \sqrt{1-\gamma^{-2}} ,\qquad \gamma^2-1 = \gamma^2 \beta^2
+\gamma = \frac{E_{kin}}{m c^2}+1 , \qquad \beta = \sqrt{1-\gamma^{-2}} ,\qquad \gamma \beta = \sqrt{\gamma^2-1}
 \end{align}
+Note, that commonly masses are given in $\si{MeV/c^2}$ so that the calculation of the Lorentz factor is made simple. 
+
+For a beam, the rigidity $B \rho$ which is a measure of how much magnetic field is needed to bend it is given by:
+\begin{align}
+B \rho = \frac{p}{q}
+\end{align}
+where $p$ is the relativistic momentum. This is made espically easy to calculate by noting that $p = \gamma m c \beta$, 
+\begin{align}
+B \rho = \frac{m c}{q} \gamma \beta
+\end{align}
+and if $[m] = \si{MeV/c^2}$, $c = 299792458 \, \si{m/s} \approx 3 \cdot 10^8 \, \si{m/s}$ so the electron charge will cancel with the $\si{e}$ in $\si{MeV}$, and this becomes a simple number, multiplying the $\beta \gamma$ factor.
+\begin{center}
+\begin{tabular}{ c c }
+Protons & $B \rho = 3.13  \gamma \beta \, \si{T m}$ \\ 
+Electrons & $B \rho = 0.0017  \gamma \beta \, \si{T m}$ \\
+\end{tabular}
+\end{center}
+this works out nicely since $1 \, \si{T} = 1 \, \si{V s / m^{2}}$.
+
+\section{Optical Elements}
+
+Before we can study the dynamics of particle accelerators, it helps to understand what physical devices are used to create field configurations.
+
+\subsection{Dipole}
+The dipole field is a uniform field in one direction, typically the vertical directions to provide horizontal steering. With a field:
+\begin{align}
+\vec{B} = B_0 \hat{y}
+\end{align}
+
+
+Dipoles come in three varieties, depending on the cross-section of the yoke and coil: C-Magnet, H-Magnet, and Window-Frame Magnet.
+
+The magnetic field in the dipole is given by the current $I$, number of turns, $n$, and the distance between the poles $h$ in the following manner:
+\begin{align}
+B_0 = \mu_0 \frac{nI}{h}
+\end{align}
+
+\subsection{Quadrupole}
+
+Quadrupoles are the most commonly used magnetic element for focusing, they provide focusing in one axis and defocussing in the other. Their field is described by:
+\begin{align}
+\vec{B} = g (y \hat{x} + x \hat{y})
+\end{align}
+where $g$ is magnetic field gradient, which is given by the number of turns $n$, current $I$, and radius of the quadrupole aperture:
+\begin{align}
+g = B' = \frac{2 \mu_0 n I}{R^2}
+\end{align}
+and we can express the restoring force as:
+\begin{align}
+k = \frac{g}{B\rho}
+\end{align}
+
+\subsection{Fringe Field}
+
+There is always a field present outside of the iron yoke, called the fringe field. We can define an effective length, $L_{\rm eff}$, which takes this into account:
+\begin{align}
+L_{\rm dipole} = \frac{1}{B_0} \int_{-\infty}^{\infty} B(s) \, ds ,\qquad
+L_{\rm quad} = \frac{1}{g_0} \int_{-\infty}^{\infty} g(s) \, ds
+\end{align}
+where it can usually be related to the length of the yoke $L_{\rm fe}$ (fe for iron in yoke) by:
+\begin{align}
+L_{\rm dipole} \approx L_{\rm fe} + 1.3 h ,\qquad
+L_{\rm quad} \approx L_{\rm fe} + R
+\end{align}
+where $h$ is the height of the gap in the dipole and $a$ is the aperture radius of the quad.
+
+\subsection{Solenoid}
+The solenoid provides a uniform field along the beam axis:
+\begin{align}
+\vec{B} = B_s \hat{s}
+\end{align}
+and particles with motion in the transverse directions experience circular motion in the transverse plane, which has the effect of focusing if the solenoid is the correct length.
+
+We find the constant $k$, the restoring force amplitude\begin{align}
+L_{\rm dipole} \approx L_{\rm fe} + 1.3 h ,\qquad
+L_{\rm quad} \approx L_{\rm fe} + R
+\end{align} to be for a solenoid, 
+\begin{align}
+k = \left( \frac{q}{2m}\right)^2 \frac{B_s^2}{v_s^2} = \frac{ q^2 B_s^2}{4 (m v_s)^2}
+\end{align}
+now take $mv_s = p$ and $B\rho = p/q$ to find this in terms of rigidity:
+\begin{align}
+k = \frac{B_s^2}{4(B \rho)^2}
+\end{align}
+
+\subsection{Einzel Lens}
+An Einzel lens is created by putting a constant electric potential across a gap. It can accelerate particles by focusing then defocussing, or decelerate particles by defocussing then focusing. 
+
+The electrostatic equivalent of the solenoid, the thin lens focal strength is given by:
+\begin{align}
+\frac{1}{f} \approx \frac{1}{8\sqrt{U_0}} \int_{s_1}^{s_2} \frac{(V')^2}{(U_0-V)^{3/2}}ds
+\end{align}
+where $U_0$ is the starting potential of the ions. 
+
+A particular case of an anode aperture is a divergent lens for all extraction systems:
+\begin{align}
+f \approx -\frac{4U_0}{E_1} = - \frac{4U_0}{E_{\rm anode}}
+\end{align}
+
+\subsection{ Multipoles }
+For a straight reference trajectory $A_s$ depends on only $x,y$ and $\nabla^2 A_s = 0$ so we have the following solution:
+\begin{align}
+A_s = \Re \left[ \sum_n C_n (x + iy)^n \right]
+\end{align}
+where the $n = 1,2,3$ term in the series is the dipole, quadrupole, sextupole, etc. The complex term $C_n$ has the real and imaginary components where the imaginary component is called the `skew' component. For dipoles, the real component is a field in the $y$-direction, and the imaginary component has a field in the $x$-direction.
+
 
 \section{Focusing}
 
@@ -87,10 +210,10 @@ F_z = q v_x B_y = -qvB_y \sin \kappa
 \end{align}
 
 \subsection{Strong Focusing}
-Using a FODO type series of lenses lets one focus much more strongly than the weak focusing machines. 
+Using a FODO type series of lenses lets one focus much more strongly than the weak focusing machines. The main advantage of his scheme is the decoupling of the acceleration, focusing and steering components.
 
 \section{Hill's Equations}
-Hill's Equations are the linear equations of motion derived from Newton's laws and the Lorentz force, they are:
+Hill's Equations are the linear equations of motion derived from Newton's laws and the Lorentz force, the transverse equations are:
 \begin{align}
 x''(s) + \left( \frac{1}{\rho^2(s)} -k(s) \right) x(s) =& \frac{1}{\rho(s)}\frac{\Delta p}{p} \\
 y''(s) + k(s) y(s) =& 0
@@ -121,7 +244,7 @@ so for example, we can choose hard edge quads that are a constant $k(s) = -k < 0
 x''(s) + k x(s) = 0 , \qquad
 y''(s) - k y(s) = 0
 \end{align}
-which has exponential ( oscillatory and hyperbolic ) solutions with frequency $\sqrt{k}$. With solutions given by:
+which has exponential (oscillatory and hyperbolic) solutions with frequency $\sqrt{k}$. Written in matrix form, the solutions are:
 \begin{align}
 \begin{bmatrix} x(s) \\ x'(s) \end{bmatrix} =
 \begin{bmatrix} \cos \sqrt{k}s & \frac{1}{\sqrt{k}} \sin \sqrt{k}s \\
@@ -138,13 +261,13 @@ Instead of $p_x$ used in Hamiltonian formulations, we use the coordinate $x'$, w
 \begin{align}
 x' = \frac{dx}{ds} = \tan \left( \frac{p_x}{p_s} \right) \approx \frac{p_x}{p_s}
 \end{align}
-since $p_s \gg p_x$. So we can represent the solution by a transfer matrix in there coordinates:
+since $p_s \gg p_x$. So using the vector-matrix representation, we call the solution matrix the transfer matrix:
 \begin{align}
 \begin{bmatrix} x(s) \\ x'(s) \end{bmatrix} =
 \underbrace{\begin{bmatrix} C_x(s) & S_x(s) \\ C'_x(s) & S'_x(s) \end{bmatrix}}_{A(s)}
 \begin{bmatrix} x_0(s) \\ x'_0(s) \end{bmatrix} \implies \vec{x}(s) = A(s) \cdot \vec{x}(s_0)
 \end{align}
-where $C,S$ refer to either $\cos$, $\sin$ or $\cosh$, $\sinh$ if $k>0$ or $k<0$ respectively. In all dimensions we also consider the longitudinal distance to the reference particle $\lambda(s)$ and the relative momentum difference $\delta(s) = \frac{\Delta p}{p}$. 
+where $C,S$ refer to either $\cos$, $\sin$ or $\cosh$, $\sinh$ if $k>0$ or $k<0$ respectively. In the longitudinal direction we also consider the distance to the reference particle $\lambda(s)$ and the relative momentum difference $\delta(s) = \frac{\Delta p}{p}$. This will become particularly important in circular machines like Synchrotrons where the RF acceleration efficiency depends on the longitudinal spread. 
 
 \subsection{Common Transfer Matrices}
 
@@ -156,25 +279,21 @@ since $x=x_0+x'_0L$ and $x' = x'_0$. A dipole magnet without edge focusing is:
 \begin{align}
 A_{\rm dipole} = \begin{bmatrix} \cos \alpha & \rho \sin \alpha \\ -1/\rho \sin \alpha & \cos \alpha \end{bmatrix}
 \end{align}
-where $\alpha [\si{rad}]$ is the angle of the dipole related to the length of the path that the particle takes in the magnet $L [\si{m}]$, and the bending radius $\rho [\si{m}]$ by $L = \rho \alpha$. The thin lens approximation for a quadrupole has:
+where $\alpha [\si{rad}]$ is the angle of the dipole related to the length of the path that the particle takes in the magnet $L [\si{m}]$, and the bending radius $\rho [\si{m}]$ by $L = \rho \alpha$. The thin lens focusing element can be written:
 \begin{align}
 A_{\rm thin} = \begin{bmatrix} 1 & 0 \\ -\frac{1}{f} & 1 \end{bmatrix}
 \end{align}
-where $f$ is the focal length. $f>0$ corresponds to focusing and $f<0$ to defocussing. Relating this to the transfer matrix found previously as the solutions to Hill's equations 
-\begin{align}
-A_{\rm thin} = \begin{bmatrix} 1 & 0 \\ -kL & 1 \end{bmatrix}
-\end{align}
-for a focusing quad, where $k$ is given by $k=\frac{g}{B\rho}$, where $g$ is the field gradient. So we have, relating the two that $1/f \approx kL = \frac{gL}{B\rho}$ in the thin lens approximation.
+where $f$ is the focal length. $f>0$ corresponds to focusing and $f<0$ to defocussing. The restoring force strength is related to the focal length by $1/f = k L$, where $L$ is the length of the element. The common focusing elements approximated as thin lenses are quadrupoles, solenoids, and Einzel lenses.
 
 The drift in the longitudinal direction can be written:
 \begin{align}
 \begin{bmatrix} \lambda \\ \delta \end{bmatrix} =
 \begin{bmatrix} 1 & L/\gamma^2 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} \lambda_0 \\ \delta_0 \end{bmatrix}
 \end{align}
-which is to say that the relative momentum is the same but the distance from the reference particle changes based on the value of the relative velocity difference.
+which is to say that the relative momentum remains the same but the distance from the reference particle changes based on the value of the relative velocity difference.
 
 \subsubsection{FODO Cell}
-A FODO cell consists of a focusing (F), drift (O), defocussing (D), and drift (O) elements. Commonly, the drifts are chosen to be the same length, in practice these are benders to keep the orbit circular in a synchrotron. It has a transfer matrix:
+A FODO cell consists of a focusing (F), drift (O), defocussing (D), and drift (O) elements. Commonly, the drifts are chosen to be the same length, in practice these drifts are benders to keep the orbit circular in a synchrotron. It has a transfer matrix:
 \begin{align}
 A_{\rm fodo} = 
 \begin{bmatrix} 1 & 0 \\ -\frac{1}{2f_1} & 1 \end{bmatrix}
@@ -197,7 +316,7 @@ A_{\rm fodo} =
 which applies a $180^\circ$ phase advance.
 
 \subsection{ General Solution and Beta-function }
-The ansatz for the general solution is:
+The ansatz for the general solution to Hill's equations is:
 \begin{align}
 x(s) = A u(s) \cos(\Psi(s)+\Psi_0)
 \end{align}
@@ -240,7 +359,9 @@ where
 \mathbf{J} = \begin{bmatrix}
 \alpha_{cs} & \beta_{cs} \\ - \gamma_{cs} & - \alpha_{cs} \end{bmatrix}
 \end{align}
-and $\mu$ is called the phase advance, and $\gamma, \alpha, \beta$ are the Twiss parameters.
+and $\mu$ is the phase advance, and $\gamma, \alpha, \beta$ are the Twiss parameters. For any periodic section, if we wish to determine the TWISS parameters, we can equate this matrix to an $s$-dependent transfer matrix. This matrix is constructed such that when $s=0$, it describes the transfer matrix from start of the cell to the end of the last element, and $s>0$, corresponds to starting some $s$ away from this point, and still transporting the particle the same length.
+
+We construct periodic sections such that $\mu = \pi /2$, independent of our $s$, but this can always be checked by taking the trace of both matrices and solving for $\mu$.
 
 
 \section{Envelope}
@@ -250,12 +371,12 @@ The transport equations and solution is given by:
 \frac{d \vec{X}}{ds} = F \vec{X} ,\qquad
 \vec{X}_f = M \vec{X}_i
 \end{align}
-where $M = \exp( \int F ds )$ over the integrated length of the beam path. So we can find the equations of motion for statistical variables:
+where $M = \exp( \int F ds )$ is the transfer matrix which is the force integrated over the length of the beam path. So we can define statistical variables of an ensemble of $N$ particles:
 \begin{align}
-\langle \vec{X} \rangle = \frac{1}{N} \sum_{i=1}^{N} \vec{X}, \qquad
-\sigma = \frac{1}{N} \sum_{i=1}^{N} \vec{X} \vec{X}^T
+\langle \vec{X} \rangle = \frac{1}{N} \sum_{i=1}^{N} \vec{X}_i, \qquad
+\sigma = \frac{1}{N} \sum_{i=1}^{N} \vec{X}_i \vec{X}^T_i
 \end{align}
-so we have the equations of motion:
+so these statistical quantities obey the equations of motion:
 \begin{align}
 \langle \vec{X} \rangle' = F_{\rm ext}\langle \vec{X} \rangle, \qquad
 \sigma' = F \sigma + \sigma F^T
@@ -336,10 +457,10 @@ and then solved for the Twiss parameters as a function of the initial Twiss para
 
 
 \section{Dispersion}
-The transverse equations of motion:
+Recall the transverse equations of motion:
 \begin{align}
-x'' + \left( \frac{1}{\rho}- k(s) \right)\cdot x =& h(s) \delta \\
-y'' + k(s) \cdot y =& 0
+x'' + \left( \frac{1}{\rho}- k(s) \right)\cdot x = h(s) \delta \, \qquad
+y'' + k(s) \cdot y = 0
 \end{align}
 where $h(s) = 1/\rho(s)$ and $\delta= \Delta p / p_0$. We define $x_\delta(s) = x_D(s) + x(s)$ so the equation of motion is $x''_\delta + k_x x_\delta = h \delta$. So we can get the inhomogeneous Hill's equations for the dispersion function:
 \begin{align}
@@ -452,68 +573,9 @@ where $ \Delta \phi_{\rm max}$ is given by $\pi - \varphi_s$ and we can write th
 \end{align}
 This approximation breaks for larger orbits, as they become more teardrop shaped as they approach the `Separatrix', which is the boundary between the stable and unstable orbits. 
 
-\section{Optical Elements}
-
-\subsection{Dipole}
-Dipoles come in three varieties, depending on the cross-section of the yoke and coil: C-Magnet, H-Magnet, and Window-Frame Magnet.
-
-The magnetic field in the dipole is given by the current $I$, number of turns, $n$, and the distance between the poles $h$ in the following manner:
-\begin{align}
-B_0 = \mu_0 \frac{nI}{h}
-\end{align}
-
-\subsection{Quadrupole}
-
-The quadrupole field gradient is given by the number of turns $n$, current $I$, and radius of the quadrupole aperture:
-\begin{align}
-g = B' = \frac{2 \mu_0 n I}{R^2}
-\end{align}
-
-\subsection{Fringe Field}
-
-There is always a field present outside of the iron yoke, called the fringe field. We can define an effective length, $L_{\rm eff}$, which takes this into account:
-\begin{align}
-L_{\rm dipole} = \frac{1}{B_0} \int_{-\infty}^{\infty} B(s) \, ds ,\qquad
-L_{\rm quad} = \frac{1}{g_0} \int_{-\infty}^{\infty} g(s) \, ds
-\end{align}
-where it can usually be related to the length of the yoke $L_{\rm fe}$ (fe for iron in yoke) by:
-\begin{align}
-L_{\rm dipole} \approx L_{\rm fe} + 1.3 h ,\qquad
-L_{\rm quad} \approx L_{\rm fe} + R
-\end{align}
-where $h$ is the height of the gap in the dipole and $a$ is the aperture radius of the quad.
-
-\subsection{Solenoid}
-We find the constant $k$, the restoring force amplitude in Hill's equations to be for a solenoid, 
-\begin{align}
-k = \frac{B_s^2}{4(B \rho)^2}
-\end{align}
-which, in the thin lens approximation, corresponds a focal length of:
-\begin{align}
-\frac{1}{f} \approx -\left( \frac{q}{2m} \right)^2 \frac{B_0^2 L_{\rm eff}}{c^2 \beta^2}
-\end{align}
-
-\subsection{Einzel Lens}
-The electrostatic equivalent of the solenoid, with a focusing then defocussing DC electric field, which has the thin lens focal strength given by:
-\begin{align}
-\frac{1}{f} \approx \frac{1}{8\sqrt{U_0}} \int_{s_1}^{s_2} \frac{(V')^2}{(U_0-V)^{3/2}}ds
-\end{align}
-where $U_0$ is the starting potential of the ions. 
-
-A particular case of an anode aperture is a divergent lens for all extraction systems:
-\begin{align}
-f \approx -\frac{4U_0}{E_1} = - \frac{4U_0}{E_{\rm anode}}
-\end{align}
-
-\subsection{ Multipoles }
-For a straight reference trajectory, then $A_s$ depends on $x,y$ and $\nabla^2 A_s = 0$ so we have the following solution:
-\begin{align}
-A_s = \Re \left[ \sum_n C_n (x + iy)^n \right]
-\end{align}
-where the $n = 1,2,3$ term in the series is the dipole, quadrupole, sextupole, etc. The complex term $C_n$ has the real and imaginary components where the imaginary component is called the `skew' component. For dipoles, the real component is a field in the $y$-direction, and the imaginary component has a field in the $x$-direction.
 
 
-\section{RF Accelerator}
+\section{RF Acceleration}
 
 Particles traveling through a series of tubes to which an alternating current is applied such that when the particle exits a tube it is accelerated by the potential difference between the tube it left and the next. The field-free drift tubes shield the ions from the electric field while it reverses direction. The beam must be bunched into short pulses or `bunches' separated by the radio frequency period $T_{\rm rf}$. 
 
@@ -771,6 +833,299 @@ with equations of motion:
 \frac{dt}{ds} = \frac{\di H_s}{\di(-E)} , \qquad 
 \frac{d(-E)}{ds} = - \frac{\di H_s}{\di t}, \qquad
 \frac{d P_s}{ds} = - \frac{\di H_s}{\di s}
+\end{align}
+
+
+\section{RF Cavities}
+
+\subsection{Pill Box Cavity}
+The pill box cavity, is a cylindrical cavity with the axis in-line with the beam axis. It can have both ends connected or one end disconnected, for closed or closed/open boundary conditions. The electric field is along the beam axis and the magnetic field is in the azimuthal direction. The field modes are specified by $m,n,p$ usually denoted TM-mnp. The wavenumber and frequencies are related by $\omega_n = c k_n$ or $k_n = 2 \pi / \lambda_n$. The non-zero field components are:
+\begin{align}
+\vec{E}(r,t) = E_{0n} J_0(k_n r) \cos (\omega_n t) \hat{z} ,\qquad
+\vec{H}(r,t) = - \frac{E_{0n}}{\eta} J_1(k_n r) \sin (\omega_n t) \hat{\theta}
+\end{align}
+Recall the magnetic field is related by $\vec{H} = \frac{1}{\mu_0} \vec{B} + \vec{M}$, where $\vec{M}$ is the magnetization. In free space, where $\vec{M}=0$ we find $\vec{B} = \mu_0 \vec{H}$.
+
+\subsection{Coaxial Resonator}
+The coaxial resonator is a central conductor placed coaxially inside a larger conductor, where the beam line travels through the cavity perpendicular to the cavity's axis. The non-zero field components are:
+\begin{align}
+\vec{E}(r,t) = -2 i \sqrt{\frac{\mu_0}{\epsilon_0}} \frac{I_0}{2 \pi r} \sin \left( \frac{p \pi z}{d} \right) e^{i \omega t} \hat{z} ,\qquad
+\vec{B}(r,t) = \frac{\mu_0 I_0}{\pi r} \cos \left( \frac{p \pi z}{d} \right) e^{i \omega t} \hat{\theta}
+\end{align}
+where $\omega = k_z c = \frac{p \pi c}{d}$ and $p=1,2,3,\dots$ corresponds the wavenumber for example, $p=1$ is a half wave resonator. A coaxial quarter wave resonator has one open end and the other closed, and has resonant length $L = \lambda(1+2p)/4$, where $p=0,1,2$ with $p=0$ being the most popular accelerating mode.
+
+\subsection{ Accelerating Voltage }
+The exact accelerating voltage is given by:
+\begin{align}
+V(\varphi) = \int_{-\infty}^{\infty} dz \, E_z(\rho=0,z) \cos(\omega t(z)+ \varphi)
+\end{align}
+taking $t=z/v = z/ \beta c$, since $c = f \lambda$ and $\omega = 2 \pi f$. This lets us define the effective voltage $V_{\rm eff}$ and the phase dependence simplifies:
+\begin{align}
+V(\varphi) = V_{\rm eff} \cos(\varphi) ,\qquad 
+V_{\rm eff} = \int_{-\infty}^{\infty} dz \, E_z(\rho=0,z) \cos(\frac{2 \pi z}{\beta \lambda})
+\end{align}
+
+\subsubsection{Transit Time Factor}
+We can split up the definition of $V_{\rm eff}$ into:
+\begin{align}
+ V_{\rm eff} = V_0 T \implies V(\varphi) = V_0 T \cos(\varphi)
+\end{align}
+Where we define each component by:
+\begin{align}
+V_0 = \left|\int_{-\infty}^{\infty} dz \, E_z(\rho=0,z) \right| ,\qquad
+T = \frac{\left| \int_{-\infty}^{\infty} dz \, E_z(\rho=0,z) \cos(\omega t(z)) \right| }{\left|\int_{-\infty}^{\infty} dz \, E_z(\rho=0,z) \right|}
+\end{align}
+where $\beta_s$ is the synchronous velocity, where a particle at that speed hits peak field in both gaps, defined by $\beta_s = \frac{2D}{\lambda}$, where $D$ is the distance between the center of the gaps.
+
+So we can determine the single gap transit time factor:
+\begin{align}
+T_{\rm 1-gap} = \frac{\beta \lambda}{\pi g} \sin \left( \frac{\pi g}{\beta \lambda} \right)
+\end{align}
+and the two gap transit time factor:
+\begin{align}
+T_{\rm 2-gap} = \frac{\beta \lambda}{\pi g} \sin \left( \frac{\pi g}{\beta \lambda} \right) \sin \left( \frac{\pi \beta_s}{2 \beta } \right)
+\end{align}
+
+Now we can define the figure of merit called the accelerating gradient $E_a$, in terms of the effective voltage and the effective length of the cavity by:
+\begin{align}
+E_a = \frac{V_{\rm eff}}{L} = \frac{V_0 T}{L}
+\end{align}
+where the length of the cavity is $L = n \beta \lambda /2$, where $n$ is the number of gaps.
+
+\subsection{Quality Factor}
+The energy stored in the field is:
+\begin{align}
+U = \frac{\mu_0}{2} \int_V dV \, |H|^2
+\end{align}
+The quality factor $Q_0$ is the energy stored in the cavity divided by the energy dissipated in the walls per radian. 
+\begin{align}
+Q_0 = \frac{U}{\Delta u} = \frac{2 \pi U}{P_c T_{\rm rf}} = \frac{\omega_0 U}{P_c}
+\end{align}
+where $P_c$ is the power loss in the cavity walls, and $T_{\rm rf}$ is the RF-period. The power loss in the cavity walls is the magnetic field in the surface times the surface resistance integrated over the surface:
+\begin{align}
+P_c = \frac{1}{2} \int_S ds \, R_s |H|^2 
+\end{align}
+so now we can calculate the quality factor explicitly:
+\begin{align}
+Q_0 = \omega_0 \mu_0 \frac{ \int_V dV \, |H|^2 }{\int_S ds \, R_s |H|^2 }
+\approx \frac{1}{R_s} \omega_0 \mu_0 \frac{ \int_V dV \, |H|^2 }{\int_S ds \, |H|^2 }
+\end{align}
+for an approximately constant $R_s$. Where these integrals are only determined by the cavity geometry so we define the geometry factor by:
+\begin{align}
+Q_0 = \frac{G}{R_s} \, \qquad G =  \omega_0 \mu_0 \frac{ \int_V dV \, |H|^2 }{\int_S ds \, |H|^2 }
+\end{align}
+
+\subsection{Shunt Impedance}
+The shunt resistance $R_a$, is related to the RF efficiency, and is different from the surface resistance $R_s$. We have the following relations including the power loss in the cavity $P_{\rm cav}$:
+\begin{align}
+R_a = \frac{V_{\rm eff}^2}{P_{\rm cav}} ,\qquad
+\frac{R_a}{Q_0} = \frac{V_{\rm eff}^2}{\omega_0 U} \implies
+P_{\rm cav} = \frac{V_{\rm eff}^2 }{\frac{R_a}{Q_0} Q_0} ,\qquad
+P_{\rm cav} = \frac{V_{\rm eff}^2 }{\frac{R_a}{Q_0} \cdot \frac{G}{R_s} } 
+\end{align}
+The factor $R_a / Q_0$ is a common figure of merit that describes the efficiency of accelerating charged particles and is independent of surface resistance.
+
+\subsection{Circuit Model}
+A cavity is analogous to a LCR parallel circuit:
+\begin{center}
+\begin{circuitikz} 
+\draw (0,3) to[american voltage source,label=V,i=I] (0,0) -- (6,0) to[capacitor,label=C] (6,3) -- (0,3);
+\draw (2,3) to[resistor, *-*,label=R] (2,0);
+\draw (4,3) to[inductor, *-*,label=L] (4,0);
+\end{circuitikz}
+\end{center}
+where the current is given by this differential equation:
+\begin{align}
+I(t) = C \frac{dV(t)}{dt} + \frac{1}{L} \int V(t) \, dt + \frac{V(t)}{R}
+\end{align}
+with solution:
+\begin{align}
+V(t) = \frac{R I_0}{\sqrt{1+ \chi^2}} \cos (\omega t + \varphi)
+\end{align}
+where we have $\tan \varphi = - \chi$ and the following relations between the relevant quantities:
+\begin{align}
+\omega_0 = \frac{1}{\sqrt{LC}} ,\qquad
+\chi = 2 Q \frac{\delta \omega}{\omega_0}
+\end{align}
+where $\delta \omega = \omega - \omega_0$ is the distance from the resonance frequency, and the bandwidth, a measure of the resonance peak, $\Delta \omega$ is given by:
+\begin{align}
+\Delta \omega = \frac{\omega_0}{Q_0}
+\end{align}
+where $\omega_0$ is the resonance frequency.
+\begin{align}
+2 U = C V_0^2 , \qquad
+P = \frac{V_0^2}{2 R} , \qquad
+Q = \frac{\omega_0 U}{P} = \omega_0 RC = \frac{R}{\omega_0 L}
+\end{align}
+The time decay constant of the stored energy $\tau_U$ is related to the time constant of the cavity voltage $\tau_V$ by:
+\begin{align}
+\tau_U = \frac{Q_0}{\omega_0} , \qquad
+\tau_\nu = 2 \tau_U = \frac{2Q_0}{\omega_0}
+\end{align}
+
+\subsubsection{Coupling Power}
+
+The total power loss in the RF system is the sum of the cavity power, the external power and a pickup:
+\begin{align}
+P_{\rm total}= P_{c} + P_{\rm ext} + P_{\rm pu}
+\end{align}
+where the external power is given by:
+\begin{align}
+P_{\rm ext} = \frac{V_{\rm eff}^2}{2 Z_0 n^2 } = \frac{V_{\rm eff}^2}{ \frac{R_a}{Q_0} Q_{\rm ext} }
+\end{align}
+where a `loaded' quality factor, $Q_L$, is defined in terms of the total power:
+\begin{align}
+Q_L = \frac{\omega_0 U}{P_{\rm total}}
+\end{align}
+and the coupling is modeled as a $1:n$ transformer which has $Z_0 \cdot n^2$ as the internal impedance.
+The quality factors are related by:
+\begin{align}
+\frac{1}{Q_L} = \frac{1}{Q_0} + \frac{1}{Q_{\rm ext}} = \frac{1}{Q_0} + \frac{\beta}{Q_0} = \frac{1+\beta}{Q_0}
+\end{align}
+the $\beta$ term is the `coupling factor', which relates the quality factors by:
+\begin{align}
+Q_0 = \beta Q_{\rm ext}
+\end{align}
+Recall the definition of the cavity's bandwidth $\Delta \omega$ but there are more components in the circuit that effect the width of the resonance peak so the actual bandwidth in practice $\Delta \Omega$ depends on the loaded quality factor so $Q_L$:
+\begin{align}
+\Delta \Omega = \frac{\omega_0}{Q_L} = \omega_0 \frac{(1+\beta)}{Q_0} ,\qquad
+\text{since} \qquad 
+\frac{1}{Q_L} = \frac{1+\beta}{Q_0} \implies \beta = \frac{Q_0}{Q_L} -1
+\end{align}
+
+
+\subsection{ Transmission Lines }
+The RF transmission line that connects the cavity to the generator is described by the characteristic impedance $Z_0$. The impedance of the cavity (the load) is $Z_L$ and the source or generator has impedance $Z_S$. Differences in these cause reflections of the voltage, described the reflection coefficient:
+\begin{align}
+\Gamma = \frac{Z_L - Z_0 }{Z_L + Z_0}
+\end{align}
+another characteristic of the transmission line is the VSWR or the `voltage standing wave ratio', which is the ratio of the peak amplitude to the minimum amplitude and is related to the reflection coefficient by: 
+\begin{align}
+\text{VSWR} = \frac{1+|\Gamma_L|}{1-|\Gamma_L|}
+\end{align}
+
+
+\subsection{ Coupling and Transmission Power }
+We find the coupling factor to be related to the impedances by $Z_L = \beta Z_0$ and so reflection coefficient by:
+\begin{align}
+\Gamma = \frac{Z_L - Z_0 }{Z_L + Z_0} = \frac{ \beta Z_0 - Z_0 }{ \beta Z_0 + Z_0} = \frac{\beta-1}{\beta+1}
+\end{align}
+So the ratio of the forward and backwards transmitted power is given by:
+\begin{align}
+\frac{P_{\rm rfl}}{P_{\rm fwd}} = \Gamma^2 \implies 
+P_{\rm rfl} = \Gamma^2 P_{\rm fwd} \implies P_{\rm fwd} - P_{\rm rfl} = P_{\rm fwd}(1-\Gamma^2)
+\end{align}
+so the power fed to the cavity is the power that is fed forward and not reflected back so we have $P_{\rm cav} = P_{\rm fwd} - P_{\rm rfl}$, so in terms of the coupling constant:
+\begin{align}
+P_{\rm cav} = P_{\rm fwd}\frac{4 \beta}{(1+\beta)^2}
+\end{align}
+However, off resonance, the detuning factor $\chi_L = 2 Q_L \frac{\delta \omega}{\omega_0}$ changes the cavity power:
+\begin{align}
+P_{\rm cav} = P_{\rm fwd}\frac{4 \beta}{(1+\beta)^2} \frac{1}{1+ \chi_L^2}
+\end{align}
+and we can re-express the detuning factor and the detuning angle $\tan \psi$ as:
+\begin{align}
+\chi_L = - \tan \psi = 2 Q_L \frac{\delta \omega}{\omega_0} = 2 \frac{Q_0}{1+\beta} \frac{\delta \omega}{\omega_0}
+\end{align}
+Finally, we can relate the generator power to the cavity power by:
+\begin{align}
+P_{\rm gen} =  \frac{P_{\rm cav}}{4 \beta} \left( (1+\beta+b_0 \cos \varphi)^2 + \left( -2 Q_0 \frac{\Delta \omega}{\omega} - b_0 \sin \varphi \right)^2 \right)
+\end{align}
+where:
+\begin{align}
+b = \frac{P_{\rm beam}}{P_{\rm cav}} = b_0 \cos \phi = \frac{R_a I_0}{V_{\rm cav}} \cos \phi , \qquad
+\beta = Q_0/Q_{\rm ext}
+\end{align}
+Detuning has both static and dynamic components:
+\begin{align}
+\tan \psi = - 2Q_L \frac{\Delta \omega_c \pm \delta \omega_d}{\omega_0} ,\qquad
+\tan \psi_0 = - 2Q_L \frac{\Delta \omega_c}{\omega_0}
+\end{align}
+where $\Delta \omega_c$ is the static detuning which is controllable and $\delta \omega_d$ is the random dynamic detuning. Using this relation we can simplify the previous generator-cavity power relation:
+\begin{align}
+P_{\rm gen} = \frac{P_{\rm cav}}{4 \beta} \left( (1+\beta+b)^2 + 4 Q_0^2 \left( \frac{\delta \omega_d}{\omega_0} \right)^2 \right)
+\end{align}
+and we can find the system such that 
+\begin{align}
+\beta^2_{opt} = \left(1+b_0 \cos \varphi\right)^2 + \left(-2Q_0 \frac{\Delta \omega}{\omega_0}- b_0 \sin \varphi \right)^2 \\
+P_{\rm gen}^{opt} = \frac{V_c^2}{R_a} \left( (1+b_0 \cos \varphi) + \beta_{opt} \right)
+\end{align}
+
+\section{Superconducting Radio Frequency}
+
+\subsection{ Normal Conducting and the Anomalous Skin Effect }
+Recall from classical electrodynamics that the current density is related to the conductance, and the electric field in the material by:
+\begin{align}
+J = \sigma E ,\qquad \sigma = \frac{n e^2 \lambda_{\rm mfp}}{m_e v_f}
+\end{align}
+where $v_f$ is the Fermi velocity, and $\lambda_{\rm mfp}$ is the mean free path. External fields will penetrate a metal decaying exponentially, with the decay constant, called the `skin depth':
+\begin{align}
+\delta = \frac{1}{\sqrt{ \mu_0 \pi f \sigma }}
+\end{align}
+the surface resistance is therefore:
+\begin{align}
+R_s = \frac{1}{\sigma \delta} = \sqrt{\frac{\omega \mu_0}{2 \sigma}}
+\end{align}
+The resistivity is the inverse of the conductance $\rho = 1/\sigma$, and we can define a characteristic constant that is independent of temperature $\rho \lambda_{\rm mfp}$. Now, the dimensionless parameter $\alpha_s$ is a function of $\lambda_{\rm mfp}$.
+\begin{align}
+\alpha_s = \frac{3}{4} \frac{\mu_0 \omega}{(\rho \lambda_{\rm mfp})} \lambda_{\rm mfp}^3
+\end{align}
+and we can calculate the surface resistance from the Anomalous Skin Effect:
+\begin{align}
+R(\lambda_{\rm mfp}) = R(\infty) (1+1.157 \alpha_s^{-0.2757}) ,\qquad
+R(\infty) = 3.79 \cdot 10^{-5} \omega^{2/3} (\rho \lambda_{\rm mfp})^{1/3}
+\end{align}
+when $\alpha_s$ is small this reduces to the classical formula for $R_s$. Another empirical tool is the RRR value which is the ratio of the resistivity at $300 \, \si{K}$ to the value at absolute zero.
+
+\subsection{SRF Surface Resistance}
+The surface resistance is given by the sum of the residual resistance $R_0$, due to impurities and trapped flux, and $R_{\rm BCS}$, where BCS refers to Bardeen-Cooper-Schrieffer theory of super conductivity. 
+\begin{align}
+R_s = R_{\rm BCS} + R_0 ,\qquad
+R_{\rm BCS}[\si{\Omega}] \approx 2 \cdot 10^{-4} \frac{1}{T} \left( \frac{f[\si{GHz}]}{1.5} \right)^2 \exp \left( - \frac{17.67}{T}\right)
+\end{align}
+
+Recall that $R_0$ contains both residual resistance due to impurities as well as trapped flux. So, we can separate these terms:
+\begin{align}
+R_0 = R_0^* + R_{\rm mag} ,\qquad
+ R_{\rm mag}[\si{n\Omega}] \approx 0.3 H_{\rm ext}[\si{mOe}] \sqrt{f [\si{GHz}]}
+\end{align}
+note that $1 \, \si{Oe} =1 \, \si{G} = 0.1 \, \si{mT}$ so $1 \, \si{mOe} = 1 \, \si{mG} = 1 \cdot 10^{-7} \, \si{T}$, and recall that $\vec{B} = \mu_0 \vec{H}$ when there is no magnetization, so this should be accounted for in external fields.
+
+\subsection{Superconducting Quench }
+Quenches can occur due to impurities in the cavity, that have a normal resistance, and when the field is turned up, this resistance will generate heat. Heating the surrounding material, causing it to become non-superconducting and this runaway effect will overpower the cooling of the cavity, and ultimately cause it to stop functioning.
+
+We can use a simple model of a spherical defect of radius $a$, resistance $R_n$ (anomalous skin effect resistance), embedded in a sheet of thickness $d$, cooled by a bath at temperature $T_b$. This defect produces heat $Q$, which we can calculate to be:
+\begin{align}
+Q = \frac{1}{2} R_n \int_S |H|^2 \, dS = \frac{1}{2} R_n |H|^2 \pi a^2
+\end{align}
+Now, if we model this by a sphere of heat $2Q$, inside a sphere of metal with thermal conductivity $\kappa$, inside a bath of temperature $T_b$, then:
+\begin{align}
+- 4\pi ^2 \kappa \frac{\di T}{\di r} = 2Q \implies
+ \int_a^b \frac{dr}{r^2} = - \frac{2\pi \kappa}{Q} \int_{T_a}^{T_b} dT
+\end{align}
+then approximating for $b \gg a$ this gives:
+\begin{align}
+\frac{1}{a} = \frac{2 \pi \kappa (T_a - T_b)}{Q} \implies 
+H = \sqrt{\frac{4 \kappa(T_a-T_b)}{a R_n}}
+\end{align}
+and if the system is undergoing a quench, $T_a = T_c$, the critical temperature, and $H = H_{\rm max}$.
+
+\section{RF Acceleration}
+The normalized energy gain in cell $n$ is given by:
+\begin{align}
+\frac{\Delta W_n}{A} = \frac{Q}{A} V_{\rm eff} \cos \varphi
+\end{align}
+where the left hand side is given in $\si{MeV/u}$ and the effective voltage is in $\si{MV}$. The complication in this formula is that $V_{\rm eff} = V_0 T(\beta)$ and $\beta$ changes as the particles accelerate. We can rewrite this as:
+\begin{align}
+\frac{\Delta W_n}{A} = \frac{Q}{A} V_{\rm eff} \frac{T(\beta)}{T_0} \cos \varphi_n = \frac{Q}{A} E_a L \frac{T(\beta)}{T_0} \cos \varphi_n
+\end{align}
+since $V_{\rm eff} = E_a L$. From this we can see how a fluctuation in phase and effective voltage, translates to a fluctuation in final energy:
+\begin{align}
+\frac{\delta W}{W} = \frac{\delta V_{\rm eff}}{V_{\rm eff}} - \tan (\varphi) \delta \varphi
+\end{align}
+So now we can define a detuning factor:
+\begin{align}
+\chi = -\tan \psi = 2 Q \frac{\delta \omega}{\omega_0}
 \end{align}
 
 \end{document}
