@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{pdfpages}
 \usepackage{circuitikz}
+\usepackage{mhchem}
 
 \title{PHYS 522 \\ Accelerator Physics}
 \author{ Paul M. Jung }
@@ -139,11 +140,7 @@ The solenoid provides a uniform field along the beam axis:
 \vec{B} = B_s \hat{s}
 \end{align}
 and particles with motion in the transverse directions experience circular motion in the transverse plane, which has the effect of focusing if the solenoid is the correct length.
-
-We find the constant $k$, the restoring force amplitude\begin{align}
-L_{\rm dipole} \approx L_{\rm fe} + 1.3 h ,\qquad
-L_{\rm quad} \approx L_{\rm fe} + R
-\end{align} to be for a solenoid, 
+The restoring force amplitude, $k$ for a solenoid is:
 \begin{align}
 k = \left( \frac{q}{2m}\right)^2 \frac{B_s^2}{v_s^2} = \frac{ q^2 B_s^2}{4 (m v_s)^2}
 \end{align}
@@ -1126,6 +1123,80 @@ since $V_{\rm eff} = E_a L$. From this we can see how a fluctuation in phase and
 So now we can define a detuning factor:
 \begin{align}
 \chi = -\tan \psi = 2 Q \frac{\delta \omega}{\omega_0}
+\end{align}
+
+
+\section{Isotopes}
+Isotopes are described by $\ce{^{A}_{Z}X^q_N}$, where $X$ is the chemical element (specified by number of protons), $A$ is the mass number, $Z$ is the proton number, $q$ is the charge and $N$ is the neutron number. The mass number is the total number of protons and neutrons $A = Z+N$.
+
+
+\subsection{Nuclear Mass}
+The Weizs\"acker Formula for Nuclear mass or Semi-Empirical Mass Formula gives an approximate mass for a general nuclei:
+\begin{align}
+M(A,Z) = N M_n + Z(M_p + m_e) - a_v A + a_s A^{2/3} + a_c \frac{Z^2}{A^{1/3}} + a_a \frac{(N-Z)^2}{4A} + \frac{\delta}{A^{1/2}}
+\end{align}
+where the terms describe:
+\begin{center}
+\begin{tabular}{ c c }
+Volume term & $a_v = 15.67 \, \si{MeV/c^2}$ \\
+Surface term & $a_s = 17.23 \, \si{MeV/c^2}$ \\
+Coulomb term & $a_c = 0.714 \, \si{MeV/c^2}$ \\
+(A)symmetry term & $a_a = 93.15 \, \si{MeV/c^2}$
+\end{tabular}
+\end{center}
+and the pairing term:
+\begin{align}
+\delta = \begin{cases}
+-11.2 \, \si{MeV/c^2} & \text{even Z, even N (even-even)} \\
+0 \, \si{MeV/c^2} & \text{odd A (odd-even)} \\
+11.2 \, \si{MeV/c^2} & \text{odd Z, odd N (odd-odd)} 
+\end{cases}
+\end{align}
+
+\subsection{Binding Energy}
+The binding energy is the energy difference between the mass of the nuclei and it's individual components.
+\begin{align}
+B(Z,A) = \left( Z(M_p + m_e) + N M_n - M(A,Z) \right)c^2
+\end{align}
+where we often use the SEMF for $M(A,Z)$.
+
+\subsection{Nuclear Decay}
+Nuclear decay is characterized by the rate equation:
+\begin{align}
+\frac{dN}{dt} = - \lambda N
+\end{align}
+where lifetime and half life are defined by:
+\begin{align}
+\tau = \frac{1}{\lambda} ,\qquad t_{1/2} = \frac{\ln 2}{\lambda}
+\end{align}
+
+\subsection{Nuclear Reactions}
+Nuclear reactions described by heavy nuclei $A,B$ and light incoming and outgoing products $a,b$ is written:
+\begin{align}
+a+A \rightarrow B+ b ,\qquad A(a,b)B
+\end{align}
+where $a+A$ is referred to as the entrance channel and $B+b$ is the exit channel. We have that in nuclear reactions, the energy released is released as heat into our system and can be calculated by the mass differences of the entrance and exit channel:
+\begin{align}
+Q = \left( (M_a + M_A) - (M_B + M_b) \right) c^2
+\end{align}
+The rate at which nuclear reactions occur when a beam of particles is incident on a target is 
+\begin{align}
+R = \varphi(1- e^{-x / \ell}) = \varphi(1- e^{-N \sigma x})
+\end{align}
+where $\ell$ is the mean free path, related to the number density of the target and the cross section of the reaction by $\ell = \frac{1}{N \sigma}$. $\varphi$ is the incident number rate. For a thin target we can approximate this by:
+\begin{align}
+R \approx \varphi N \sigma x 
+\end{align}
+After irradiating a target then letting it cool, the yield is given by:
+\begin{align}
+N_1 = \frac{R}{\lambda_1} (1 - e^{-\lambda_1 t_{\rm irr}})e^{-\lambda_1 t_{\rm cool}}
+\end{align}
+where $\lambda_1$ is the decay rate of the nuclear product of interest, and $R$ is the reaction rate during irradiation. This can be derived from a rate differential equation by considering the simultaneous production and decay rates.
+
+\section{Targets}
+Extracting quickly decaying isotopes from a target is quite difficult. Experimentally, we find the relation between the extraction efficiency $\varepsilon_{t_{\nicefrac{1}{2}}}$, the ionization efficiency $\varepsilon_s$, and various fit parameters:
+\begin{align}
+\varepsilon_{t_{\nicefrac{1}{2}}} = \frac{\varepsilon_s}{1+ \left(t_{\nicefrac{1}{2}}/t_0\right)^2}
 \end{align}
 
 \end{document}
